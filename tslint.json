@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "tslint:recommended"
+    ],
+    "defaultSeverity": "warning",
+    "jsRules": {},
+    "rules": {
+        "max-line-length": {
+            "options": [120]
+        },
+        "ordered-imports": false,
+        "trailing-comma": true
+    },
+    "rulesDirectory": []
+}

@@ -10,9 +10,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'hello'
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({
+    name: "hello",
+})
+export default class Hello extends Vue {
+
 }
 </script>
 

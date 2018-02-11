@@ -9,11 +9,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 /*
  * Root component
  */
-export default {}
+export default {};
 </script>
 
 <style lang="stylus">
