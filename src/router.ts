@@ -28,6 +28,6 @@ export default new VueRouter({
      */
     mode: "hash",
     routes: [
-        { path: "/", component: new Hello },
+        { path: "/", component: Hello },
     ]
 });
