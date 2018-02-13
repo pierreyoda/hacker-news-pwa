@@ -37,8 +37,8 @@ export default class StoriesList extends Vue {
 
     refresh() {
         dispatchRefreshSortedStories(this.$store, {
-            limit: 10,
-            sorting: HackerNewsStoriesSorting.Newest,
+            limit: 20,
+            sorting: HackerNewsStoriesSorting.Top,
         }).then((d) => console.log("refresh done") )
         .catch((reason) => console.log("StoriesList error : " + reason));
     }
@@ -52,7 +52,17 @@ export default class StoriesList extends Vue {
 <style scoped lang="stylus">
 @import "~variables"
 
+#stories-list
+    position relative
+    max-width 800px
+    margin 0 auto
+
 .list
-    list-style: none
+    margin 30px 0
+    width 100%
+    list-style none
+    ul
+        padding 0
+        margin 0
 
 </style>

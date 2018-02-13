@@ -24,16 +24,15 @@ export default class App extends Vue {
 </script>
 
 <style lang="stylus">
-@import '~variables';
+@import "~variables"
 
-main {
-    text-align: center;
-    margin-top: 40px;
-}
+main
+    text-align center
+    margin-top 40px
+    background-color #eeeee3
 
-header {
-    margin: 0;
-    height: 10px;
-    background-color: $primary;
-}
+header
+    margin 0;
+    height 10px;
+    background-color $primary
 </style>
