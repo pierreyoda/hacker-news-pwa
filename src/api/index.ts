@@ -11,6 +11,12 @@ const API_VERSION = "v0";
 const API_URL = `https://hacker-news.firebaseio.com/${API_VERSION}`;
 const ERROR = "HN API Error :";
 
+export enum HackerNewsStoriesSorting {
+    Top,
+    Newest,
+    Best,
+}
+
 /**
  * Fetch the object describing the Hacker News Item with the corresponding ID.
  */
@@ -70,4 +76,21 @@ export const fetchCurrentMaxItem = async (): Promise<number> => {
     if (maxId < 0)
         return Promise.reject(`${ERROR} "${maxId}" is an invalid item ID.`);
     return Promise.resolve(maxId);
+}
+
+/**
+ * Get the IDs of the top/newest/best stories (up to 500).
+ */
+export const fetchStoriesIDs = async (sort: HackerNewsStoriesSorting): Promise<number[]> => {
+    let resource;
+    switch (sort) {
+        case HackerNewsStoriesSorting.Top: resource = "topstories"; break;
+        case HackerNewsStoriesSorting.Newest: resource = "newstories"; break;
+        case HackerNewsStoriesSorting.Best: resource = "beststories"; break;
+        default: Promise.resolve(`${ERROR} fetchStories does not support sort option ${sort}.`)
+    }
+    const response = await fetch(`${API_URL}/${resource}.json`);
+    const text = await response.text();
+    let ids: number[] = JSON.parse(text);
+    return Promise.resolve(ids);
 }

@@ -1,6 +1,16 @@
 <template>
-    <div class="story-item">
-    </div>
+    <li class="story-item">
+        <span class="score">{{ story.score }}</span>
+        <span class="title">
+            <span>{{ story.data.title }} // </span>
+            <span>{{ story.data.url }} // </span>
+        </span>
+        <span class="meta">
+            <span class="comments-link">
+                {{ story.data.descendants }} comments
+            </span>
+        </span>
+    </li>
 </template>
 
 <script lang="ts">
@@ -12,6 +22,9 @@ import Component from "vue-class-component";
  */
 @Component({
     name: "story-item",
+    props: {
+        story: {},
+    }
 })
 export default class StoryItem extends Vue {
 }

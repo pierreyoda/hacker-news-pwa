@@ -5,15 +5,6 @@ import StoriesList from "@/StoriesList.vue";
 
 Vue.use(VueRouter);
 
-/*
- * Uncomment this section and use "load()" if you want
- * to lazy load routes.
-function load (component) {
-  // '@' is aliased to src/components
-  return () => import(`@/${component}.vue`)
-}
-*/
-
 export default new VueRouter({
     /*
      * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,

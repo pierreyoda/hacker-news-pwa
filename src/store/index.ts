@@ -1,13 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { moduleArticles } from "./modules/articles";
+import { moduleItems, ItemsState } from "./modules/items";
 
 Vue.use(Vuex);
 
+export interface RootState {
+    items: ItemsState,
+}
+
 export default new Vuex.Store({
     modules: {
-        articles: moduleArticles,
+        items: moduleItems,
     },
-    strict: process.env.NODE_ENV !== "production"
+    strict: process.env.NODE_ENV !== "production",
 });
