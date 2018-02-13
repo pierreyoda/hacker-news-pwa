@@ -18,10 +18,12 @@
         "quasar-framework": "^0.14.9",
         "vue": "^2.5.13",
         "vue-router": "^3.0.1",
-        "vuex": "^3.0.1"
+        "vuex": "^3.0.1",
+        "whatwg-fetch": "^2.0.3"
     },
     "devDependencies": {
         "@types/node": "^9.4.5",
+        "@types/whatwg-fetch": "^0.0.33",
         "ajv": "^6.1.1",
         "autoprefixer": "^8.0.0",
         "colors": "^1.1.2",
