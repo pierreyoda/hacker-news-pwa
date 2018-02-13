@@ -17,7 +17,8 @@
         "quasar-extras": "0.0.8",
         "quasar-framework": "^0.14.9",
         "vue": "^2.5.13",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.1"
     },
     "devDependencies": {
         "@types/node": "^9.4.5",
@@ -54,6 +55,7 @@
         "vue-loader": "^14.1.1",
         "vue-style-loader": "^3.1.2",
         "vue-template-compiler": "^2.5.13",
+        "vuex-class": "^0.3.0",
         "webpack": "^3.11.0",
         "webpack-dev-middleware": "^2.0.5",
         "webpack-hot-middleware": "^2.21.0",

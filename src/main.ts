@@ -6,10 +6,12 @@ require(`./themes/app.${__THEME}.styl`);
 
 import Vue from "vue";
 import Quasar from "quasar";
+
 import router from "./router";
+import store from "./store/index";
 import App from "./App.vue";
 
-Vue.use(Quasar); // Install Quasar Framework
+Vue.use(Quasar);
 
 if (__THEME === "mat") {
     require('quasar-extras/roboto-font');
@@ -25,5 +27,6 @@ Quasar.start(() => {
         el: "#q-app",
         render: (h) => h(App),
         router,
+        store,
     });
 });
