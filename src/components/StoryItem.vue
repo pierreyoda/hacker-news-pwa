@@ -3,15 +3,23 @@
         <span class="score">{{ story.data.score }}</span>
         <span class="title">
             <span>
-                <a :href="story.data.url" rel="noopener">
+                <router-link :to="'/story/' + story.data.id">
                     {{ story.data.title }}
+                </router-link>
+                &nbsp;//&nbsp;
+                <a :href="story.data.url" rel="noopener">
+                    (source)
                 </a>
             </span>
         </span>
         <br>
         <span class="meta">
             <span class="user-link">
-                by {{ story.data.by }} //&nbsp;
+                by&nbsp;
+                <router-link :to="'/user/' + story.data.by">
+                    {{ story.data.by }}
+                </router-link>
+                &nbsp;//&nbsp;
             </span>
             <span class="comments-link">
                 {{ story.data.descendants }} comments

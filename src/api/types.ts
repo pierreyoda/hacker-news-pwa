@@ -32,7 +32,7 @@ export interface HackerNewsComment extends HackerNewsItem {
 }
 
 export interface HackerNewsUser {
-    id: string, // NB: case-sensitive
+    id: string, // unique, case-sensitive username
     delay: number,
     created: Date,
     karma: number,

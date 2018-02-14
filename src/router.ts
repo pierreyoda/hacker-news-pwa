@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import Story from "@/Story.vue";
 import StoriesList from "@/StoriesList.vue";
+import Error404 from "@/Error404.vue";
 
 Vue.use(VueRouter);
 
@@ -19,6 +21,8 @@ export default new VueRouter({
      */
     mode: "hash",
     routes: [
+        { path: "/story/:id", component: Story },
         { path: "/", component: StoriesList },
+        { path: "*", component: Error404 }
     ]
 });

@@ -13,14 +13,11 @@
 import Vue from "vue";
 import {
     Getter,
-    namespace,
 } from "vuex-class";
 import Component from "vue-class-component";
 import { HackerNewsStoriesSorting } from "../api/index";
 import { dispatchRefreshSortedStories } from "../store/modules/items";
 import StoryItem from "./StoryItem.vue";
-
-const ModuleGetter = namespace("items/", Getter);
 
 /**
  * Displays a list of 'StoryItem' components.
@@ -33,14 +30,13 @@ const ModuleGetter = namespace("items/", Getter);
 })
 export default class StoriesList extends Vue {
     @Getter("items/sortedStories") sortedStories: any;
-    @ModuleGetter("items") moduleGetter: any;
 
     refresh() {
         dispatchRefreshSortedStories(this.$store, {
-            limit: 20,
+            limit: 10,
             sorting: HackerNewsStoriesSorting.Top,
-        }).then((d) => console.log("refresh done") )
-        .catch((reason) => console.log("StoriesList error : " + reason));
+        }).then((d: any) => console.log("refresh done") )
+        .catch((reason: any) => console.log("StoriesList error : " + reason));
     }
 
     mounted() {
@@ -58,7 +54,7 @@ export default class StoriesList extends Vue {
     margin 0 auto
 
 .list
-    margin 30px 0
+    margin 30px
     width 100%
     list-style none
     ul
