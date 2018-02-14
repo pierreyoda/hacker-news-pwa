@@ -52,6 +52,7 @@
         "tslint": "^5.9.1",
         "tslint-loader": "^3.5.3",
         "typescript": "^2.7.1",
+        "uglify-es": "^3.3.10",
         "url-loader": "^0.6.2",
         "vue-class-component": "^6.1.2",
         "vue-loader": "^14.1.1",
