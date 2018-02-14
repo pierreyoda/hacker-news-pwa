@@ -1,9 +1,10 @@
 <template>
   <!-- Don't drop "q-app" class -->
     <div id="q-app">
-        <header>Simple Hacker News Reader</header>
         <main>
-            <img src="~assets/quasar-logo-full.svg" alt="Quasar PWA">
+            <div class="title">
+                <h1>Simple Hacker News Reader</h1>
+            </div>
             <router-view></router-view>
         </main>
     </div>
