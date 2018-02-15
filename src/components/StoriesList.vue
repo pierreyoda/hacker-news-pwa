@@ -35,8 +35,7 @@ export default class StoriesList extends Vue {
         dispatchRefreshSortedStories(this.$store, {
             limit: 10,
             sorting: HackerNewsStoriesSorting.Top,
-        }).then((d: any) => console.log("refresh done") )
-        .catch((reason: any) => console.log("StoriesList error : " + reason));
+        }).catch((reason: any) => console.log("StoriesList error : " + reason));
     }
 
     mounted() {

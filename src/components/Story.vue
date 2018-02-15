@@ -16,9 +16,10 @@
                 {{ currentStory.descendants }} comments
             </span>
             <transition-group name="comments-transition" tag="ul">
-                <li v-for="comment in sortedComments" class="list"
-                    :key="comment.data.id">
-                    <Comment :comment="comment" />
+                <li v-for="commentId in currentStory.kids" class="list"
+                    :key="commentId">
+                    <!-- {{ comments.length }} -->
+                    <Comment :comment="comments[commentId]" />
                 </li>
             </transition-group>
         </div>
@@ -28,10 +29,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import {
-    Getter,
-    namespace,
-} from "vuex-class";
+import { Getter } from "vuex-class";
 import { dispatchGetStory } from "../store/modules/items";
 import Comment from "./Comment.vue";
 
@@ -47,7 +45,7 @@ import Comment from "./Comment.vue";
 })
 export default class Article extends Vue {
     @Getter("items/current") currentStory: any;
-    @Getter("items/sortedComments") sortedComments: any;
+    @Getter("items/comments") comments: any;
 
     refresh() {
         const id = Number.parseInt(this.$route.params.id);
@@ -66,5 +64,9 @@ export default class Article extends Vue {
 
 .story
     background-color #ffffff
+
+.comments
+    .list
+        list-style none
 
 </style>

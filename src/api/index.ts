@@ -55,6 +55,25 @@ export const fetchComment = async (id: number): Promise<HackerNewsComment> => {
 }
 
 /**
+ * Recursively get all the comments (in ranked order) of an Hacker News Item
+ * as a flat array.
+ */
+export const fetchItemComments = async (kids: number[]): Promise<HackerNewsComment[]> => {
+    const fetchKids = kids.map(async (id) => {
+        const data = await fetchComment(id);
+        let kidsData: HackerNewsComment[] = [];
+        if (data.kids && data.kids.length > 0) {
+            kidsData = await fetchItemComments(data.kids);
+        }
+        return Promise.resolve(kidsData.concat(data));
+    });
+    const commentsData = await Promise.all(fetchKids);
+    let comments: HackerNewsComment[] = [];
+    commentsData.forEach((c) => comments.push(...c));
+    return Promise.resolve(comments);
+}
+
+/**
  * Get the Hacker News User with the given ID (case-sensitive).
  */
 export const fetchUser = async (id: String): Promise<HackerNewsUser> => {

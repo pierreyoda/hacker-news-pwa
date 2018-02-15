@@ -13,6 +13,7 @@
         "build": "node build/script.build.js"
     },
     "dependencies": {
+        "moment": "^2.20.1",
         "quasar": "0.0.18",
         "quasar-extras": "0.0.8",
         "quasar-framework": "^0.14.9",

@@ -7,11 +7,13 @@ require(`./themes/app.${__THEME}.styl`);
 import Vue from "vue";
 import Quasar from "quasar";
 
+import { registerFilters } from "./utils";
 import router from "./router";
 import store from "./store/index";
 import App from "./App.vue";
 
 Vue.use(Quasar);
+registerFilters();
 
 if (__THEME === "mat") {
     require('quasar-extras/roboto-font');

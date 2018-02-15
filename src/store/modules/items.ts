@@ -2,10 +2,10 @@ import * as vuex from "vuex";
 import { getStoreAccessors } from "vuex-typescript";
 
 import {
+    HackerNewsStoriesSorting,
     fetchStory,
     fetchStoriesIDs,
-    HackerNewsStoriesSorting,
-    fetchComment,
+    fetchItemComments,
 } from "../../api";
 import {
     HackerNewsItem,
@@ -21,18 +21,20 @@ export interface Story {
 }
 export interface Comment {
     data: HackerNewsComment,
-
+    collapsed: boolean,
 }
+
+type CommentsRecord = Record<string, Comment>;
 
 export interface ItemsState {
     current: HackerNewsItem,
-    sortedComments: Comment[],
+    comments: CommentsRecord,
     sortedStories: Story[],
 }
 
 const initialState = {
     current: {},
-    sortedComments: [],
+    comments: {},
     sortedStories: [],
 }
 
@@ -42,7 +44,7 @@ type ItemsContext = vuex.ActionContext<ItemsState, RootState>;
 // Getters
 const getters = {
     current: (state: ItemsState) => state.current,
-    sortedComments: (state: ItemsState) => state.sortedComments,
+    comments: (state: ItemsState) => state.comments,
     sortedStories: (state: ItemsState): Story[] => state.sortedStories,
 };
 
@@ -50,27 +52,25 @@ const getters = {
 const actions = {
     async getStory(context: ItemsContext, id: number) {
         if (!Number.isInteger(id) || id < 0)
-            throw new RangeError(`items store : invalid ID
+            throw new RangeError(`items store : invalid story ID
                 \"${id}\" in action getStory.`);
 
-        const storyData: HackerNewsStory = await fetchStory(id);
+        try {
+            const storyData: HackerNewsStory = await fetchStory(id);
+            const commentsData = await fetchItemComments(storyData.kids);
 
-        // retrieve comments
-        const commentsIDs: number[] = storyData.kids;
-        const fetch = (id: number) => fetchComment(id);
-        Promise.all(commentsIDs.map(fetch))
-            .then((commentsData) => {
-                const comments = commentsData.map((data) => {
-                    return {
-                        data,
-                        collapsed: false,
-                    };
-                });
-                commitSetSortedComments(context, comments);
-            }).catch((reason) =>
-                console.log("store error in items : " + reason)
+            let comments: CommentsRecord = {};
+            commentsData.forEach((data) =>
+                comments[data.id] = {
+                    data,
+                    collapsed: false,
+                }
             );
-        commitSetCurrentItem(context, storyData);
+            commitSetCurrentItem(context, storyData);
+            commitSetComments(context, comments);
+        } catch (error) {
+            console.log(`items store error in action getStory : ${error}`);
+        }
     },
 
     async refreshSortedStories(context: ItemsContext,
@@ -107,27 +107,37 @@ const mutations = {
         state.current = item;
     },
 
-    setSortedComments(state: ItemsState, comments: Comment[]) {
-        state.sortedComments = comments;
+    toggleCommentCollapsed(state: ItemsState, id: number) {
+        const comment = state.comments[id];
+        if (comment == undefined) {
+            console.log(`store error in items : cannot find comment with ID
+                         "${id}" cannot be found in action toggleCommentCollapsed.`);
+            return;
+        }
+        comment.collapsed = !comment.collapsed;
     },
+
+    setComments(state: ItemsState, comments: CommentsRecord) {
+        state.comments = comments;
+    },
+
     setSortedStories(state: ItemsState, stories: Story[]) {
         state.sortedStories = stories;
     },
-
     clearSortedStories(state: ItemsState) {
         state.sortedStories = [];
     }
 };
 
 // Methods
-const { read, dispatch, commit } = getStoreAccessors<ItemsState, RootState>("items");
+const { dispatch, commit } = getStoreAccessors<ItemsState, RootState>("items");
 
-export const readSortedStories = read(getters.sortedStories);
 export const dispatchGetStory = dispatch(actions.getStory);
 export const dispatchRefreshSortedStories = dispatch(actions.refreshSortedStories);
 export const commitSetCurrentItem = commit(mutations.setCurrentItem);
+export const commitToggleCommentCollapsed = commit(mutations.toggleCommentCollapsed);
 export const commitSetSortedStories = commit(mutations.setSortedStories);
-export const commitSetSortedComments = commit(mutations.setSortedComments);
+export const commitSetComments = commit(mutations.setComments);
 export const commitClearSortedStories = commit(mutations.clearSortedStories);
 
 export const moduleItems = {

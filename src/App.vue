@@ -1,5 +1,4 @@
 <template>
-  <!-- Don't drop "q-app" class -->
     <div id="q-app">
         <main>
             <div class="title">
@@ -24,16 +23,15 @@ export default class App extends Vue {
 }
 </script>
 
-<style lang="stylus">
+<style scoped lang="stylus">
 @import "~variables"
 
 main
     text-align center
-    margin-top 40px
+    margin 0
     background-color #eeeee3
 
-header
-    margin 0;
-    height 10px;
-    background-color $primary
+.title
+    h1
+        margin 0
 </style>
