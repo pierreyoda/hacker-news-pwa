@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Story from "@/Story.vue";
 import StoriesList from "@/StoriesList.vue";
 import Error404 from "@/Error404.vue";
+import { HackerNewsStoriesSorting } from "./api";
 
 Vue.use(VueRouter);
 
@@ -22,7 +23,16 @@ export default new VueRouter({
     mode: "hash",
     routes: [
         { path: "/story/:id", component: Story },
+        { path: "/top", component: StoriesList, props: {
+            sorting: HackerNewsStoriesSorting.Top,
+        } },
+        { path: "/new", component: StoriesList, props: {
+            sorting: HackerNewsStoriesSorting.Newest,
+        } },
+        { path: "/best", component: StoriesList, props: {
+            sorting: HackerNewsStoriesSorting.Best,
+        } },
         { path: "/", component: StoriesList },
-        { path: "*", component: Error404 }
+        { path: "*", component: Error404 },
     ]
 });

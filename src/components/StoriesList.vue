@@ -11,9 +11,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {
-    Getter,
-} from "vuex-class";
+import { Getter } from "vuex-class";
+import { Prop } from "vue-property-decorator";
 import Component from "vue-class-component";
 import { HackerNewsStoriesSorting } from "../api/index";
 import { dispatchRefreshSortedStories } from "../store/modules/items";
@@ -29,12 +28,15 @@ import StoryItem from "./StoryItem.vue";
     },
 })
 export default class StoriesList extends Vue {
+    @Prop({default: HackerNewsStoriesSorting.Top})
+    sorting!: HackerNewsStoriesSorting;
+
     @Getter("items/sortedStories") sortedStories: any;
 
     refresh() {
         dispatchRefreshSortedStories(this.$store, {
             limit: 10,
-            sorting: HackerNewsStoriesSorting.Top,
+            sorting: this.$props.sorting,
         }).catch((reason: any) => console.log("StoriesList error : " + reason));
     }
 
