@@ -12,7 +12,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Getter } from "vuex-class";
-import { Prop } from "vue-property-decorator";
+import { Prop, Watch } from "vue-property-decorator";
 import Component from "vue-class-component";
 import { HackerNewsStoriesSorting } from "../api/index";
 import { dispatchRefreshSortedStories } from "../store/modules/items";
@@ -33,15 +33,20 @@ export default class StoriesList extends Vue {
 
     @Getter("items/sortedStories") sortedStories: any;
 
+    @Watch("$route")
+    onRouteChanged() {
+        this.refresh();
+    }
+
+    mounted() {
+        this.refresh();
+    }
+
     refresh() {
         dispatchRefreshSortedStories(this.$store, {
             limit: 10,
             sorting: this.$props.sorting,
         }).catch((reason: any) => console.log("StoriesList error : " + reason));
-    }
-
-    mounted() {
-        this.refresh();
     }
 }
 </script>

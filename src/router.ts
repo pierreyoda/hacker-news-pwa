@@ -32,7 +32,7 @@ export default new VueRouter({
         { path: "/best", component: StoriesList, props: {
             sorting: HackerNewsStoriesSorting.Best,
         } },
-        { path: "/", component: StoriesList },
+        { path: "/", redirect: "/top" },
         { path: "*", component: Error404 },
     ]
 });

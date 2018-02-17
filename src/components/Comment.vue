@@ -32,7 +32,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Getter } from "vuex-class";
-import { commitToggleCommentCollapsed } from "../store/modules/items";
+import { Prop } from "vue-property-decorator";
+import {
+    Comment as CommentStoreData,
+    commitToggleCommentCollapsed
+} from "../store/modules/items";
 import { pluralize } from "../utils";
 
 /**
@@ -40,11 +44,11 @@ import { pluralize } from "../utils";
  */
 @Component({
     name: "comment",
-    props: {
-        comment: {},
-    },
 })
 export default class Comment extends Vue {
+    @Prop()
+    comment!: CommentStoreData;
+
     @Getter("items/current") currentStory: any;
     @Getter("items/comments") comments: any;
 
