@@ -24,7 +24,7 @@ export interface Comment {
     collapsed: boolean,
 }
 
-type CommentsRecord = Record<string, Comment>;
+export type CommentsRecord = Record<string, Comment>;
 
 export interface ItemsState {
     current: HackerNewsItem,

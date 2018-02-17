@@ -35,6 +35,7 @@ import { Getter } from "vuex-class";
 import { Prop } from "vue-property-decorator";
 import {
     Comment as CommentStoreData,
+    CommentsRecord,
     commitToggleCommentCollapsed
 } from "../store/modules/items";
 import { pluralize } from "../utils";
@@ -48,8 +49,7 @@ import { pluralize } from "../utils";
 export default class Comment extends Vue {
     @Prop() comment!: CommentStoreData;
 
-    @Getter("items/current") currentStory: any;
-    @Getter("items/comments") comments: any;
+    @Getter("items/comments") comments!: CommentsRecord;
 
     get repliesCounter() {
         const kids = this.$props.comment.data.kids;
