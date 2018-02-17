@@ -31,17 +31,17 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
+import { HackerNewsStory } from "../api/types";
 
 /**
  * A compact Story entry in the 'StoriesList'.
  */
 @Component({
     name: "story-item",
-    props: {
-        story: {},
-    }
 })
 export default class StoryItem extends Vue {
+    @Prop() story!: HackerNewsStory;
 }
 </script>
 

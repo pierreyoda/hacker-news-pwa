@@ -46,8 +46,7 @@ import { pluralize } from "../utils";
     name: "comment",
 })
 export default class Comment extends Vue {
-    @Prop()
-    comment!: CommentStoreData;
+    @Prop() comment!: CommentStoreData;
 
     @Getter("items/current") currentStory: any;
     @Getter("items/comments") comments: any;
