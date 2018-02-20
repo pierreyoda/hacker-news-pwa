@@ -4,7 +4,6 @@
             <router-link :to="'/user/' + comment.data.by">
                 {{ comment.data.by }}
             </router-link>
-            &nbsp;//&nbsp;
             <span class="timedelta">
                 {{ comment.data.time | timeAgo }} ago
             </span>
@@ -66,9 +65,9 @@ export default class Comment extends Vue {
 @import "~variables"
 
 li
-    list-style none
 
 .toggle
+    float left
     padding .3em .5em
     border-radius 4px
     &.open
@@ -79,9 +78,11 @@ li
         cursor pointer
 
 .by, .text
+    text-align left
     font-size 0.9em
     margin 1em 0
 .by
+    color $tertiary
     a
-        motext-decoration underline
+        text-decoration underline
 </style>

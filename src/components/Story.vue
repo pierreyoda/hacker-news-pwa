@@ -100,6 +100,9 @@ export default class Article extends Vue {
         font-weight 800
 
 .comments
+    background-color #ffffff
+    margin-top 10px
+    padding 0 2em .5em 2em
     .list
         list-style none
 

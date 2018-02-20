@@ -87,6 +87,7 @@ export default class App extends Vue {
 
 main
     text-align center
-    margin 20px 0 0 0
+    max-width $mainMaxWidth
+    margin 20px auto 0
     background-color #eeeee3
 </style>
