@@ -15,13 +15,60 @@ module.exports = function(ctx) {
             remove: []
         },
         build: {
+            // publicPath: "/build",
             scopeHoisting: true,
             vueRouterMode: "history",
             // gzip: true,
             // analyze: true,
             // extractCSS: false,
             // useNotifier: false,
-            extendWebpack(cfg) {}
+            extendWebpack(cfg) {
+                cfg.resolve.extensions = [
+                    ".ts",
+                    ...cfg.resolve.extensions
+                ];
+                cfg.module.rules.push({
+                    test: /\.(vue|ts|js)$/,
+                    loader: 'tslint-loader',
+                    enforce: 'pre',
+                    include: ctx.projectRoot,
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.ts$/,
+                    loader: 'ts-loader',
+                    include: ctx.projectRoot,
+                    exclude: /node_modules|quasar|vue\/src/,
+                    options: {
+                        appendTsSuffixTo: [/\.vue$/]
+                    }
+                })
+                // {
+                //     test: /\.vue$/,
+                //     loader: 'vue-loader',
+                //     options: {
+                //         esModule: true,
+                //         //postcss: ctx.cssUtils.postcss,
+                //         loaders: {
+                //             js: 'ts-loader!tslint-loader',
+                //             ts: 'ts-loader!tslint-loader'
+                //         },
+                //         /*loaders: merge({
+                //             js: 'ts-loader!tslint-loader',
+                //             ts: 'ts-loader!tslint-loader'
+                //         }, ctx.cssUtils.styleLoaders({
+                //             sourceMap: true,
+                //             extract: env.prod
+                //         })),*/
+                //         transformToRequire: {
+                //             video: 'src',
+                //             source: 'src',
+                //             img: 'src',
+                //             image: 'xlink:href'
+                //         }
+                //     }
+                // })
+            }
         },
         devServer: {
             // https: true,
